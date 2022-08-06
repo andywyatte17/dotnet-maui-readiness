@@ -13,7 +13,11 @@ time goes on.
 
 Feature list:
 
-  - 
+  - Prism for features such as
+      - Navigation
+      - ...
+  - SKCanvasView
+  - Open and display contents of binary file from the platform
 
 ## Platforms
 
@@ -33,4 +37,3 @@ We require that the project builds and runs on:
 
 This is the first batch of work that occurred around August 2022.
 The method and details are found in PHASE1.md.
-
