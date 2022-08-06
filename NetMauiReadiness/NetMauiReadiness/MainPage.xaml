@@ -4,9 +4,6 @@
              xmlns:vm="clr-namespace:NetMauiReadiness.ViewModels"
              x:Class="NetMauiReadiness.MainPage">
     <!-- ... -->
-    <ContentPage.BindingContext>
-        <vm:MainViewModel />
-    </ContentPage.BindingContext>
     <!-- ... -->
     <ScrollView>
         <VerticalStackLayout

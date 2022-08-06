@@ -50,7 +50,14 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Prism.Core" Version="8.1.97" />
+	  <PackageReference Include="Prism.DryIoc.Maui" Version="8.1.254-beta" />
 	  <PackageReference Include="Prism.Maui" Version="8.1.254-beta" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\SomePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

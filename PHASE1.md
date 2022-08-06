@@ -25,6 +25,7 @@
 
   - Add Prism.Core
   - Add Prism.Maui
+  - Add Prism.DryIoc.Maui
 
 <hr/>
 
