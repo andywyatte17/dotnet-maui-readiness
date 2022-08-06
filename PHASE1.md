@@ -3,7 +3,8 @@
 ## References
 
   - ms-dotnet-first-app
-      - Instructions as per [Microsoft dotnet maui first-app](https://docs.microsoft.com/en-us/dotnet/maui/get-started/first-app?pivots=devices-windows).
+      - Instructions as per 
+        [Microsoft dotnet maui first-app](https://docs.microsoft.com/en-us/dotnet/maui/get-started/first-app?pivots=devices-windows).
 
 <hr/>
 
@@ -19,4 +20,21 @@
       - .NET MAUI App
       - Project Name *NetMauiReadiness*
       - Framework .NET 6.0 (Long-term support)
-    - 
+
+## Nuget packages (part 1)
+
+  - Add Prism.Core
+  - Add Prism.Maui
+
+<hr/>
+
+## Feature progress
+
+### Added MainPageViewModel etc...
+
+  - Added ViewModelBase(.cs)
+  - Added MainViewModel(.cs) derived from ViewModelBase.
+  - Made MainPage's view-model MainViewModel.
+  - Bound new Button 'Show Popup' to ICommand MainViewModel.ShowPopup.
+
+### ShowPopup

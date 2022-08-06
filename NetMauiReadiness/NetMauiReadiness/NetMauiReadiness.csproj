@@ -48,4 +48,9 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="Prism.Core" Version="8.1.97" />
+	  <PackageReference Include="Prism.Maui" Version="8.1.254-beta" />
+	</ItemGroup>
+
 </Project>

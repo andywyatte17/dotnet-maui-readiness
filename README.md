@@ -18,6 +18,8 @@ Feature list:
       - ...
   - SKCanvasView
   - Open and display contents of binary file from the platform
+  - Use MVVM model for backwards compatibility.
+  - Popup modals - maybe RgPopup.
 
 ## Platforms
 
