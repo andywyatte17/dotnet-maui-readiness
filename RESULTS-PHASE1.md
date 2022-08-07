@@ -36,7 +36,7 @@ Here we show how the various features work across the plaforms:
 <tr>
     <td>File Picker</td>
     <td>&#x2713;</td>
-    <td>Fails</td>
+    <td>Fails - clicking the button *Pick File and Show* does nothing.</td>
     <td>&#x2713;</td>
     <td>&#x2713;</td>
 </tr>
