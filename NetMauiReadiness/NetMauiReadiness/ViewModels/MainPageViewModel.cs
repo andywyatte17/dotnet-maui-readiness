@@ -29,7 +29,7 @@ public partial class MainPageViewModel : ViewModelBase
 
 	private void OnShowPopup()
 	{
-		var popup = new SomePopup();
+		var popup = new SomePopup(new SomePanelViewModel());
 		App.Current?.MainPage?.ShowPopup(popup);
 	}
 
