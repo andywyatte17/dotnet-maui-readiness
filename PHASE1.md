@@ -23,9 +23,13 @@
 
 ## Nuget packages (part 1)
 
-  - Add Prism.Core
-  - Add Prism.Maui
-  - Add Prism.DryIoc.Maui
+  - Prism.Core
+  - Prism.Maui
+  - Prism.DryIoc.Maui
+  - CommunityToolkit.MVVM
+      - By Microsoft; for stuff like AsyncRelayCommand...
+  - CommunityTookit.MAUI
+      - For Popup support.
 
 <hr/>
 
@@ -36,6 +40,37 @@
   - Added ViewModelBase(.cs)
   - Added MainViewModel(.cs) derived from ViewModelBase.
   - Made MainPage's view-model MainViewModel.
-  - Bound new Button 'Show Popup' to ICommand MainViewModel.ShowPopup.
 
 ### ShowPopup
+
+Use CommunityToolkit.MAUI. Don't forget
+
+```cs
+builder.UseMauiCommunityToolkit() ...
+```   
+then to display use
+```cs
+App.Current?.MainPage?.ShowPopup(popup);
+```
+
+#### ShowPopup on Windows
+
+<img src="documentation/images/showpopup-phase1.webp"
+     alt="Show Popup - Phase 1" style="width: 500px"/>
+
+### ShowPage
+
+```cs
+await App.Current.MainPage.Navigation?.PushAsync(new SomePage())
+```
+
+### FilePicker
+
+  - See [.NET MAUI > FilePicker](https://docs.microsoft.com/en-us/dotnet/maui/platform-integration/storage/file-picker?tabs=windows)
+  - IOS/Android permissions needed
+      - Android/MainApplication.cs - [assembly: UsesPermission(Android.Manifest.Permission.ReadExternalStorage)]
+      - IOS - ?? Enable iCloud capabilities ??
+
+```cs
+await FilePicker.Default.PickAsync(options)
+```

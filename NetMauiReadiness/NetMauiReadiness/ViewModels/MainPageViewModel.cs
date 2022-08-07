@@ -1,35 +1,44 @@
-﻿using NetMauiReadiness.Views;
+﻿using CommunityToolkit.Mvvm.Input;
+using NetMauiReadiness.Views;
 using System.Windows.Input;
+using CommunityToolkit.Maui.Views;
 
 namespace NetMauiReadiness.ViewModels;
 
-public class MainPageViewModel : ViewModelBase
+public partial class MainPageViewModel : ViewModelBase
 {
 	readonly INavigationService _navigationService;
 	readonly IServiceProvider _servicesProvider;
 
-
-#if SINGLE
-	public MainPageViewModel(IServiceProvider servicesProvider)
+	protected MainPageViewModel()
 	{
-		_servicesProvider = servicesProvider;
+		_pickFileAndShow = new AsyncRelayCommand(() => OnPickFileAndShow());
+		_showPopup = new RelayCommand(() => OnShowPopup());
+		_goToSomePage = new AsyncRelayCommand(() => OnGoToSomePage());
 	}
-#else
-	public MainPageViewModel(IServiceProvider servicesProvider, INavigationService navigationService)
+
+	public MainPageViewModel(IServiceProvider servicesProvider, INavigationService navigationService) : this()
 	{
 		_servicesProvider = servicesProvider;
 		_navigationService = navigationService;
 	}
-#endif
-	public ICommand ShowPopup => new Command(() => OnShowPopup(), () => true);
 
-	private async Task OnShowPopup()
+	private ICommand _showPopup;
+
+	public ICommand ShowPopup => _showPopup;
+
+	private void OnShowPopup()
 	{
-		App.Current.MainPage.Navigation?.PushAsync(
-			_servicesProvider.GetService<SomePopup>()
-		);
-		//App.Current.MainPage.Navigation?.PushModalAsync(
-		//	_servicesProvider.GetService<SomePopup>()
-		//);
+		var popup = new SomePopup();
+		App.Current?.MainPage?.ShowPopup(popup);
+	}
+
+	private ICommand _goToSomePage;
+
+	public ICommand GoToSomePage => _goToSomePage;
+
+	private async Task OnGoToSomePage()
+	{
+		await App.Current.MainPage.Navigation?.PushAsync(new SomePage());
 	}
 }

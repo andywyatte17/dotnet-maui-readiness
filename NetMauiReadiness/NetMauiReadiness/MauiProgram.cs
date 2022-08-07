@@ -1,4 +1,5 @@
-﻿using NetMauiReadiness.ViewModels;
+﻿using CommunityToolkit.Maui;
+using NetMauiReadiness.ViewModels;
 using NetMauiReadiness.Views;
 using Prism.Ioc;
 
@@ -32,11 +33,12 @@ public static class MauiProgram
 		builder.Services.AddSingleton<MainPageViewModel>();			
 #else
 		builder
+			.UseMauiCommunityToolkit()
 			.UsePrismApp<App>(prism =>
 					prism.RegisterTypes(container => {
 						PlatformInitializer.RegisterTypes(container);
 						// ...
-						container.RegisterForNavigation<SomePopup>();
+						//container.RegisterForNavigation<SomePopup>();
 					}));
 
 		builder
