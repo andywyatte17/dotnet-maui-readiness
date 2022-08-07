@@ -1,4 +1,4 @@
-# dotnet-maui-readiness - phase 1
+# dotnet-maui-readiness - PHASE1
 
 ## References
 
