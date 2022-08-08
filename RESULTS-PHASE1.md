@@ -36,7 +36,7 @@ Here we show how the various features work across the plaforms:
 <tr>
     <td>File Picker</td>
     <td>&#x2713;</td>
-    <td>Fails - clicking the button *Pick File and Show* does nothing.</td>
+    <td>&#x2713; - see Notes 2.</td>
     <td>&#x2713;</td>
     <td>&#x2713;</td>
 </tr>
@@ -47,3 +47,4 @@ Here we show how the various features work across the plaforms:
 
   1. Nav > Popup - Android - text doesn't wrap.  
      <img src="documentation/images/phase1-android-popup-issue.jpg" />
+  2. This failed initially due to Entitlements.plist > sandbox=true settings.
