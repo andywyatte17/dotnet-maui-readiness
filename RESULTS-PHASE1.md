@@ -47,4 +47,10 @@ Here we show how the various features work across the plaforms:
 
   1. Nav > Popup - Android - text doesn't wrap.  
      <img src="documentation/images/phase1-android-popup-issue.jpg" />
+      - This may be a CommunityToolkit.MAUI issue - let's track  
+        <a href="https://github.com/CommunityToolkit/Maui/issues/439">Github > CommunityToolkit.Maui > Issue 439</a>.  
+        They say there is might relate to ScrollView usage.
+      - See also <a href="https://github.com/CommunityToolkit/Maui/pull/404">CommunityToolkit.Maui &gt; PR 404</a>
+          - PR 404 probably doesn't fix this - see it got into the
+            <a href="https://github.com/CommunityToolkit/Maui/releases/tag/1.0.0">1.0.0</a> release but we are using 1.2.0.
   2. This failed initially due to Entitlements.plist > sandbox=true settings.
