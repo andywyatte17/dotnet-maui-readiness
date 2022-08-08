@@ -25,6 +25,7 @@ public partial class MainPageViewModel
 				{
 					{ DevicePlatform.WinUI, Win },
 					{ DevicePlatform.MacCatalyst, iOS },
+					{ DevicePlatform.macOS, iOS },
 					{ DevicePlatform.iOS, iOS },
 					{ DevicePlatform.Android, Droid }
 				}
