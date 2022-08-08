@@ -17,44 +17,57 @@ public partial class MainPageViewModel
 		var iOS = new[] { "public.jpeg", "public.png", "public.text" }; // or general UTType values
 		var Droid = new[] { "image/jpeg", "image/png", "text/plain" };
 
-		var result = await PickAndShow(new PickOptions()
+		try
 		{
-			
-			FileTypes = new FilePickerFileType(
-				new Dictionary<DevicePlatform, IEnumerable<string>>()
-				{
+			//throw new Exception("Dummy exception");
+
+			var result = await PickAndShow(new PickOptions()
+			{
+
+				FileTypes = new FilePickerFileType(
+					new Dictionary<DevicePlatform, IEnumerable<string>>()
+					{
 					{ DevicePlatform.WinUI, Win },
 					{ DevicePlatform.MacCatalyst, iOS },
 					{ DevicePlatform.macOS, iOS },
 					{ DevicePlatform.iOS, iOS },
 					{ DevicePlatform.Android, Droid }
+					}
+				),
+				PickerTitle = "Get me a file!"
+			});
+
+			if (result == null)
+				return;
+
+			var stream = await result.OpenReadAsync();
+			byte[] some = new byte[50];
+			var read = await stream.ReadAsync(some, 0, 50);
+
+			_fileContents = System.Convert.ToHexString(some);
+			for (int i = 0, im = 0, r = 0, len = (int)_fileContents.Length; i < len; i++, r++)
+			{
+				if (im == 40)
+				{
+					_fileContents = _fileContents.Substring(0, r) + "\n" + _fileContents.Substring(r);
+					r++;
+					im = 1;
 				}
-			),
-			PickerTitle = "Get me a file!"
-		});
-
-		if (result == null)
-			return;
-
-		var stream = await result.OpenReadAsync();
-		byte[] some = new byte[50];
-		var read = await stream.ReadAsync(some, 0, 50);
-
-		_fileContents = System.Convert.ToHexString(some);
-		for (int i = 0, im = 0, r = 0, len = (int)_fileContents.Length; i < len; i++, r++)
-		{
-			if (im == 40)
-			{
-				_fileContents = _fileContents.Substring(0, r) + "\n" + _fileContents.Substring(r);
-				r++;
-				im = 1;
+				else
+				{
+					im++;
+				}
 			}
-			else
-			{
-				im++;
-			}
+			RaisePropertyChanged(nameof(FileContents));
 		}
-		RaisePropertyChanged(nameof(FileContents));
+		catch (Exception e)
+		{
+			await App.Current?.MainPage?.DisplayAlert(
+				title: "OnPickFileAndShow",
+				message: e.ToString(),
+				cancel: "Cancel"
+			);
+		}
 	}
 
 	public async Task<FileResult> PickAndShow(PickOptions options)
