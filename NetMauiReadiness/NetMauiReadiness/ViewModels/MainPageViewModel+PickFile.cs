@@ -24,8 +24,9 @@ public partial class MainPageViewModel
 				new Dictionary<DevicePlatform, IEnumerable<string>>()
 				{
 					{ DevicePlatform.WinUI, Win },
+					{ DevicePlatform.MacCatalyst, iOS },
 					{ DevicePlatform.iOS, iOS },
-                    { DevicePlatform.Android, Droid }
+					{ DevicePlatform.Android, Droid }
 				}
 			),
 			PickerTitle = "Get me a file!"
