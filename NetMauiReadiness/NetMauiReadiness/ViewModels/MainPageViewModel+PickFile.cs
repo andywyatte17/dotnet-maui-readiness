@@ -77,13 +77,8 @@ public partial class MainPageViewModel
 			var result = await FilePicker.Default.PickAsync(options);
 			if (result != null)
 			{
-				if (result.FileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-						result.FileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-						result.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
-				{
-					using var stream = await result.OpenReadAsync();
-					var image = ImageSource.FromStream(() => stream);
-				}
+				// if (result.FileName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+				// ...
 			}
 
 			return result;
