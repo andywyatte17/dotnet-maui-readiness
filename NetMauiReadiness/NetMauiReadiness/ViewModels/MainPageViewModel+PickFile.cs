@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using NetMauiReadiness.Services;
 using NetMauiReadiness.Views;
 using System.Windows.Input;
 using static System.Net.Mime.MediaTypeNames;
@@ -8,6 +9,7 @@ namespace NetMauiReadiness.ViewModels;
 public partial class MainPageViewModel
 {
 	ICommand _pickFileAndShow;
+	readonly IFileSavePicker _savePicker;
 
 	public ICommand PickFileAndShow => _pickFileAndShow; 
 
@@ -93,4 +95,86 @@ public partial class MainPageViewModel
 
 	string _fileContents;
 	public string FileContents => _fileContents;
+
+	public ICommand SaveFile => new AsyncRelayCommand(() => OnSaveFile());
+
+    public async Task<FileResult> PickAndShowSave(PickOptions options)
+    {
+        try
+        {
+			var str = await _savePicker?.ShowDialogAndGetFile();
+			if (str != null)
+			{
+				using (var stream = File.CreateText(str))
+				{
+					stream.Write(FileContents);
+				}
+			}
+        }
+        catch (Exception)
+        {
+            // The user canceled or something went wrong
+        }
+
+        return null;
+    }
+
+    private async Task OnSaveFile()
+    {
+        var Win = new[] { ".txt" };
+        var iOS = new[] { "public.text" }; // or general UTType values
+		var Droid = new[] { "text/plain" };
+
+        try
+        {
+            //throw new Exception("Dummy exception");
+
+            var result = await PickAndShowSave(new PickOptions()
+            {
+
+                FileTypes = new FilePickerFileType(
+                    new Dictionary<DevicePlatform, IEnumerable<string>>()
+                    {
+                    { DevicePlatform.WinUI, Win },
+                    { DevicePlatform.MacCatalyst, iOS },
+                    { DevicePlatform.macOS, iOS },
+                    { DevicePlatform.iOS, iOS },
+                    { DevicePlatform.Android, Droid }
+                    }
+                ),
+                PickerTitle = "Get me a save file!"
+            });
+
+            if (result == null)
+                return;
+
+            var stream = await result.OpenReadAsync();
+            byte[] some = new byte[50];
+            var read = await stream.ReadAsync(some, 0, 50);
+
+            _fileContents = System.Convert.ToHexString(some);
+            for (int i = 0, im = 0, r = 0, len = (int)_fileContents.Length; i < len; i++, r++)
+            {
+                if (im == 40)
+                {
+                    _fileContents = _fileContents.Substring(0, r) + "\n" + _fileContents.Substring(r);
+                    r++;
+                    im = 1;
+                }
+                else
+                {
+                    im++;
+                }
+            }
+            RaisePropertyChanged(nameof(FileContents));
+        }
+        catch (Exception e)
+        {
+            await App.Current?.MainPage?.DisplayAlert(
+                title: "OnPickFileAndShow",
+                message: e.ToString(),
+                cancel: "Cancel"
+            );
+        }
+    }
 }

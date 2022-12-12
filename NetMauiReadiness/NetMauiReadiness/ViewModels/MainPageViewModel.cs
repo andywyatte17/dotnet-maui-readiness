@@ -2,6 +2,7 @@
 using NetMauiReadiness.Views;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
+using NetMauiReadiness.Services;
 
 namespace NetMauiReadiness.ViewModels;
 
@@ -17,13 +18,15 @@ public partial class MainPageViewModel : ViewModelBase
 		_goToSomePage = new AsyncRelayCommand(() => OnGoToSomePage());
 	}
 
-	public MainPageViewModel(IServiceProvider servicesProvider, INavigationService navigationService) : this()
+	public MainPageViewModel(IServiceProvider servicesProvider, INavigationService navigationService,
+		IFileSavePicker savePicker) : this()
 	{
 		_servicesProvider = servicesProvider;
 		_navigationService = navigationService;
+		_savePicker = savePicker;
 	}
 
-	private ICommand _showPopup;
+    private ICommand _showPopup;
 
 	public ICommand ShowPopup => _showPopup;
 

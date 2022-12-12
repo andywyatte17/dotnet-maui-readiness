@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using NetMauiReadiness.ViewModels;
-using NetMauiReadiness.Views;
-using Prism.Ioc;
+using NetMauiReadiness.Services;
 
 namespace NetMauiReadiness;
 
@@ -11,7 +10,7 @@ public static class PlatformInitializer
 	{
 		//containerRegistry.RegisterPopupNavigationService();
 		//containerRegistry.RegisterPopupDialogService();
-	}
+    }
 }
 
 public static class MauiProgram
@@ -49,8 +48,13 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddSingleton<MainPage>();
-		builder.Services.AddSingleton<MainPageViewModel>();
+        builder.Services.AddSingleton<MainPageViewModel>();
+#if WINDOWS
+		builder.Services.AddSingleton<IFileSavePicker, FileSavePicker>();
+#elif ANDROID
+        builder.Services.AddSingleton<IFileSavePicker, FileSavePicker>();
 #endif
-		return builder.Build();
+#endif
+        return builder.Build();
 	}
 }

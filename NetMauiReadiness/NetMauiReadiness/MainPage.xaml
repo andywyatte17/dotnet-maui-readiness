@@ -51,7 +51,12 @@
                            Text="{Binding FileContents}" />
                 </ScrollView>
             </HorizontalStackLayout>
-            
+
+            <Button Command="{Binding SaveFile}"
+                    IsEnabled="{Binding HasFile}"
+                    Text="Save File"
+                    HorizontalOptions="Center" />
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
